@@ -1,0 +1,630 @@
+package Aplicaçao;
+
+import java.util.Date;
+import java.util.Scanner;
+import Entidades.Evento;
+
+public class menujogos{
+    private Evento[] eventos;
+    private int tamanho;
+    private static final int TAMANHO_INICIAL = 10;
+
+    public menujogos() {
+        eventos = new Evento[TAMANHO_INICIAL];
+        tamanho = 0;
+    }
+
+    public void executar() {
+        Scanner scanner = new Scanner(System.in);
+        int opcao;
+
+        do {
+            exibirMenu();
+            opcao = scanner.nextInt();
+            scanner.nextLine(); //
+
+            switch (opcao) {
+                case 1:
+                    cadastrarEvento(scanner);
+                    break;
+                case 2:
+                    removerEvento(scanner);
+                    break;
+                case 3:
+                    consultarEvento(scanner);
+                    break;
+                case 4:
+                    iniciarVendas(scanner);
+                    break;
+                case 5:
+                    encerrarVendas(scanner);
+                    break;
+                case 6:
+                    cancelarEvento(scanner);
+                    break;
+                case 7:
+                    marcarComoOcorrido(scanner);
+                    break;
+                case 8:
+                    consultarLugaresLivres(scanner);
+                    break;
+                case 9:
+                    venderIngresso(scanner);
+                    break;
+                case 10:
+                    venderIngressoDefault(scanner);
+                    break;
+                case 11:
+                    listarEventos();
+                    break;
+                case 12:
+                    System.out.println("Encerrando o programa...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Digite novamente.");
+                    break;
+            }
+        } while (opcao != 12);
+
+        scanner.close();
+    }
+
+    private void exibirMenu() {
+        System.out.println("=== Menu ===");
+        System.out.println("1. Cadastrar um Evento");
+        System.out.println("2. Remover um Evento");
+        System.out.println("3. Consultar os dados de um determinado evento");
+        System.out.println("4. Iniciar a venda de ingressos para um determinado evento");
+        System.out.println("5. Encerrar a venda de ingressos para um determinado evento");
+        System.out.println("6. Cancelar um determinado evento");
+        System.out.println("7. Marcar um determinado evento como já ocorrido");
+        System.out.println("8. Consultarpackage Aplicaçao;
+
+import java.util.Date;
+import java.util.Scanner;
+import Entidades.Evento;
+
+public class menujogos{
+    private Evento[] eventos;
+    private int tamanho;
+    private static final int TAMANHO_INICIAL = 10;
+
+    public menujogos() {
+        eventos = new Evento[TAMANHO_INICIAL];
+        tamanho = 0;
+    }
+
+    public void executar() {
+        Scanner scanner = new Scanner(System.in);
+        int opcao;
+
+        do {
+            exibirMenu();
+            opcao = scanner.nextInt();
+            scanner.nextLine(); //
+
+            switch (opcao) {
+                case 1:
+                    cadastrarEvento(scanner);
+                    break;
+                case 2:
+                    removerEvento(scanner);
+                    break;
+                case 3:
+                    consultarEvento(scanner);
+                    break;
+                case 4:
+                    iniciarVendas(scanner);
+                    break;
+                case 5:
+                    encerrarVendas(scanner);
+                    break;
+                case 6:
+                    cancelarEvento(scanner);
+                    break;
+                case 7:
+                    marcarComoOcorrido(scanner);
+                    break;
+                case 8:
+                    consultarLugaresLivres(scanner);
+                    break;
+                case 9:
+                    venderIngresso(scanner);
+                    break;
+                case 10:
+                    venderIngressoDefault(scanner);
+                    break;
+                case 11:
+                    listarEventos();
+                    break;
+                case 12:
+                    System.out.println("Encerrando o programa...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Digite novamente.");
+                    break;
+            }
+        } while (opcao != 12);
+
+        scanner.close();
+    }
+
+    private void exibirMenu() {
+        System.out.println("=== Menu ===");
+        System.out.println("1. Cadastrar um Evento");
+        System.out.println("2. Remover um Evento");
+        System.out.println("3. Consultar os dados de um determinado evento");
+        System.out.println("4. Iniciar a venda de ingressos para um determinado evento");
+        System.out.println("5. Encerrar a venda de ingressos para um determinado evento");
+        System.out.println("6. Cancelar um determinado evento");
+        System.out.println("7. Marcar um determinado evento como já ocorrido");
+        System.out.println("8. Consultar a quantidade de lugares livres para um determinado evento");
+        System.out.println("9. Vender ingresso de um determinado evento");
+        System.out.println("10. Vender ingresso de um evento com quantidade de ingressos default");
+        System.out.println("11. Listar os dados de todos os eventos");
+        System.out.println("12. Sair");
+        System.out.print("Digite a opção desejada: ");
+    }
+
+    private void cadastrarEvento(Scanner scanner) {
+        System.out.print("Digite o título do evento: ");
+        String titulo = scanner.nextLine();
+
+        System.out.print("Digite o local do evento: ");
+        String local = scanner.nextLine();
+
+        System.out.print("Digite a data do evento (formato: dd/mm/aaaa): ");
+        String dataStr = scanner.nextLine();
+        Date data = parseDate(dataStr);
+
+        System.out.print("Digite a hora do evento: ");
+        String hora = scanner.nextLine();
+
+        System.out.print("Digite a capacidade do evento: ");
+        int capacidade = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        System.out.print("Digite o valor do ingresso do evento (ou deixe em branco para usar o valor default): ");
+        String valorIngressoStr = scanner.nextLine();
+        double valorIngresso;
+
+        if (valorIngressoStr.isEmpty()) {
+            valorIngresso = Evento.VALOR_DEFAULT_INGRESSO;
+        } else {
+            valorIngresso = Double.parseDouble(valorIngressoStr);
+        }
+
+        Evento evento = new Evento(titulo, local, data, hora, capacidade, valorIngresso);
+        eventos[tamanho++] = evento;
+
+        System.out.println("Evento cadastrado com sucesso. Código do evento: " + evento.getCodigo());
+    }
+
+    private void removerEvento(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja remover: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento eventoRemovido = eventos[indice];
+
+            for (int i = indice; i < tamanho - 1; i++) {
+                eventos[i] = eventos[i + 1];
+            }
+
+            tamanho--;
+            eventos[tamanho] = null;
+
+            System.out.println("Evento removido com sucesso: " + eventoRemovido.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void consultarEvento(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja consultar: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            System.out.println("=== Dados do Evento ===");
+            System.out.println("Código: " + evento.getCodigo());
+            System.out.println("Título: " + evento.getTitulo());
+            System.out.println("Local: " + evento.getLocal());
+            System.out.println("Data: " + evento.getData());
+            System.out.println("Hora: " + evento.getHora());
+            System.out.println("Capacidade: " + evento.getCapacidade());
+            System.out.println("Lugares Vendidos: " + evento.getLugaresVendidos());
+            System.out.println("Valor do Ingresso: " + evento.getValorIngresso());
+            System.out.println("Status: " + evento.getStatus());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void iniciarVendas(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja iniciar as vendas: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.iniciarVendas();
+            System.out.println("Vendas iniciadas para o evento: " + evento.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void encerrarVendas(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja encerrar as vendas: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.finalizarVendas();
+            System.out.println("Vendas encerradas para o evento: " + evento.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void cancelarEvento(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja cancelar: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.cancelarEvento();
+            System.out.println("Evento cancelado: " + evento.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void marcarComoOcorrido(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja marcar como ocorrido: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.marcarComoOcorrido();
+            System.out.println("Evento marcado como ocorrido: " + evento.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void consultarLugaresLivres(Scanner scanner) {
+        System.out.print("Digite o código do evento para consultar a quantidade de lugares livres: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            System.out.println("Lugares livres para o evento " + evento.getTitulo() + ": " + evento.qtdLugarLivre());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void venderIngresso(Scanner scanner) {
+        System.out.print("Digite o código do evento para realizar a venda de ingresso: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+
+            System.out.print("Digite a quantidade de ingressos que deseja vender: ");
+            int qtdIngressos = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer do teclado
+
+            evento.venda(qtdIngressos);
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void venderIngressoDefault(Scanner scanner) {
+        System.out.print("Digite o código do evento para realizar a venda de ingresso: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.venda();
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void listarEventos() {
+        if (tamanho == 0) {
+            System.out.println("Nenhum evento cadastrado.");
+        } else {
+            System.out.println("=== Lista de Eventos ===");
+            for (int i = 0; i < tamanho; i++) {
+                Evento evento = eventos[i];
+                System.out.println("Código: " + evento.getCodigo() + " | Título: " + evento.getTitulo());
+            }
+        }
+    }
+
+    private int buscarEvento(int codigo) {
+        for (int i = 0; i < tamanho; i++) {
+            if (eventos[i].getCodigo() == codigo) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private Date parseDate(String dataStr) {
+        // Implemente a lógica de conversão de String para Date aqui
+        // Exemplo simples para retornar null:
+        return null;
+    }
+
+    public static void main(String[] args) {
+    	menujogos menu = new menujogos();
+        menu.executar();
+    }
+}
+ a quantidade de lugares livres para um determinado evento");
+        System.out.println("9. Vender ingresso de um determinado evento");
+        System.out.println("10. Vender ingresso de um evento com quantidade de ingressos default");
+        System.out.println("11. Listar os dados de todos os eventos");
+        System.out.println("12. Sair");
+        System.out.print("Digite a opção desejada: ");
+    }
+
+    private void cadastrarEvento(Scanner scanner) {
+        System.out.print("Digite o título do evento: ");
+        String titulo = scanner.nextLine();
+
+        System.out.print("Digite o local do evento: ");
+        String local = scanner.nextLine();
+
+        System.out.print("Digite a data do evento (formato: dd/mm/aaaa): ");
+        String dataStr = scanner.nextLine();
+        Date data = parseDate(dataStr);
+
+        System.out.print("Digite a hora do evento: ");
+        String hora = scanner.nextLine();
+
+        System.out.print("Digite a capacidade do evento: ");
+        int capacidade = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        System.out.print("Digite o valor do ingresso do evento (ou deixe em branco para usar o valor default): ");
+        String valorIngressoStr = scanner.nextLine();
+        double valorIngresso;
+
+        if (valorIngressoStr.isEmpty()) {
+            valorIngresso = Evento.VALOR_DEFAULT_INGRESSO;
+        } else {
+            valorIngresso = Double.parseDouble(valorIngressoStr);
+        }
+
+        Evento evento = new Evento(titulo, local, data, hora, capacidade, valorIngresso);
+        eventos[tamanho++] = evento;
+
+        System.out.println("Evento cadastrado com sucesso. Código do evento: " + evento.getCodigo());
+    }
+
+    private void removerEvento(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja remover: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento eventoRemovido = eventos[indice];
+
+            for (int i = indice; i < tamanho - 1; i++) {
+                eventos[i] = eventos[i + 1];
+            }
+
+            tamanho--;
+            eventos[tamanho] = null;
+
+            System.out.println("Evento removido com sucesso: " + eventoRemovido.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void consultarEvento(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja consultar: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            System.out.println("=== Dados do Evento ===");
+            System.out.println("Código: " + evento.getCodigo());
+            System.out.println("Título: " + evento.getTitulo());
+            System.out.println("Local: " + evento.getLocal());
+            System.out.println("Data: " + evento.getData());
+            System.out.println("Hora: " + evento.getHora());
+            System.out.println("Capacidade: " + evento.getCapacidade());
+            System.out.println("Lugares Vendidos: " + evento.getLugaresVendidos());
+            System.out.println("Valor do Ingresso: " + evento.getValorIngresso());
+            System.out.println("Status: " + evento.getStatus());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void iniciarVendas(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja iniciar as vendas: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.iniciarVendas();
+            System.out.println("Vendas iniciadas para o evento: " + evento.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void encerrarVendas(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja encerrar as vendas: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.finalizarVendas();
+            System.out.println("Vendas encerradas para o evento: " + evento.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void cancelarEvento(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja cancelar: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.cancelarEvento();
+            System.out.println("Evento cancelado: " + evento.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void marcarComoOcorrido(Scanner scanner) {
+        System.out.print("Digite o código do evento que deseja marcar como ocorrido: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.marcarComoOcorrido();
+            System.out.println("Evento marcado como ocorrido: " + evento.getTitulo());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void consultarLugaresLivres(Scanner scanner) {
+        System.out.print("Digite o código do evento para consultar a quantidade de lugares livres: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            System.out.println("Lugares livres para o evento " + evento.getTitulo() + ": " + evento.qtdLugarLivre());
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void venderIngresso(Scanner scanner) {
+        System.out.print("Digite o código do evento para realizar a venda de ingresso: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+
+            System.out.print("Digite a quantidade de ingressos que deseja vender: ");
+            int qtdIngressos = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer do teclado
+
+            evento.venda(qtdIngressos);
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void venderIngressoDefault(Scanner scanner) {
+        System.out.print("Digite o código do evento para realizar a venda de ingresso: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do teclado
+
+        int indice = buscarEvento(codigo);
+
+        if (indice != -1) {
+            Evento evento = eventos[indice];
+            evento.venda();
+        } else {
+            System.out.println("Evento não encontrado.");
+        }
+    }
+
+    private void listarEventos() {
+        if (tamanho == 0) {
+            System.out.println("Nenhum evento cadastrado.");
+        } else {
+            System.out.println("=== Lista de Eventos ===");
+            for (int i = 0; i < tamanho; i++) {
+                Evento evento = eventos[i];
+                System.out.println("Código: " + evento.getCodigo() + " | Título: " + evento.getTitulo());
+            }
+        }
+    }
+
+    private int buscarEvento(int codigo) {
+        for (int i = 0; i < tamanho; i++) {
+            if (eventos[i].getCodigo() == codigo) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private Date parseDate(String dataStr) {
+        // Implemente a lógica de conversão de String para Date aqui
+        // Exemplo simples para retornar null:
+        return null;
+    }
+
+    public static void main(String[] args) {
+    	menujogos menu = new menujogos();
+        menu.executar();
+    }
+}
