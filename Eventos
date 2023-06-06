@@ -1,0 +1,133 @@
+package Entidades;
+
+import java.util.Date;
+
+public class Evento {
+    public static final double VALOR_DEFAULT_INGRESSO = 100.0;
+    private static int proximoCodigo = 1;
+    private static final int CAPACIDADE_DEFAULT = 3000;
+    private static final int QTD_INGRESSOS_VENDA_DEFAULT = 2;
+
+    private int codigo;
+    private String titulo;
+    private String local;
+    private Date data;
+    private String hora;
+    private int capacidade;
+    private int lugaresVendidos;
+    private double valorIngresso;
+    private String status;
+
+    public Evento(String titulo, String local, Date data, String hora, int capacidade, double valorIngresso) {
+        this.codigo = proximoCodigo++;
+        this.titulo = titulo;
+        this.local = local;
+        this.data = data;
+        this.hora = hora;
+        this.capacidade = capacidade;
+        this.lugaresVendidos = 0;
+        this.valorIngresso = valorIngresso;
+        this.status = "Vendas não iniciadas";
+    }
+
+    public Evento(String titulo, String local, Date data, String hora, int capacidade) {
+        this(titulo, local, data, hora, capacidade, VALOR_DEFAULT_INGRESSO);
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
+    public int getCapacidade() {
+        return capacidade;
+    }
+
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
+    }
+
+    public int getLugaresVendidos() {
+        return lugaresVendidos;
+    }
+
+    public double getValorIngresso() {
+        return valorIngresso;
+    }
+
+    public void setValorIngresso(double valorIngresso) {
+        this.valorIngresso = valorIngresso;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void iniciarVendas() {
+        status = "Vendas iniciadas";
+    }
+
+    public void finalizarVendas() {
+        status = "Vendas encerradas";
+    }
+
+    public void cancelarEvento() {
+        status = "Evento cancelado";
+    }
+
+    public void marcarComoOcorrido() {
+        status = "Evento ocorrido";
+    }
+
+    public int qtdLugarLivre() {
+        return capacidade - lugaresVendidos;
+    }
+
+    public void venda(int qtdIngressos) {
+        if (status.equals("Vendas iniciadas")) {
+            if (qtdIngressos <= qtdLugarLivre()) {
+                lugaresVendidos += qtdIngressos;
+                System.out.println(qtdIngressos + " ingressos vendidos para o evento " + titulo);
+            } else {
+                System.out.println("Não há lugares suficientes disponíveis para essa quantidade de ingressos.");
+            }
+        } else {
+            System.out.println("As vendas ainda não foram iniciadas para o evento " + titulo);
+        }
+    }
+
+    public void venda() {
+        venda(QTD_INGRESSOS_VENDA_DEFAULT);
+    }
+}
